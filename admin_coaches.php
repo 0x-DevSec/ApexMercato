@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Apex Admin | Players Management</title>
+<title>Apex Admin | Coaches Management</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -29,7 +29,7 @@ body {
 }
 .card-hover:hover {
     transform: translateY(-6px);
-    box-shadow: 0 0 25px #ff003c;
+    box-shadow: 0 0 25px #00f2ff;
 }
 .search-input {
     background: #000;
@@ -48,13 +48,13 @@ body {
 
 <!-- SIDEBAR -->
 <aside class="col-md-2 sidebar p-3">
-    <h4 class="text-danger text-center">ADMIN CORE</h4>
+    <h4 class="text-info text-center">ADMIN CORE</h4>
     <hr>
     <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a class="nav-link text-white" href="admin_players.php">🎮 Players</a></li>
         <li class="nav-item mb-2">
-            <a class="nav-link text-danger fw-bold" href="admin_players.php">🎮 Players</a>
+            <a class="nav-link text-info fw-bold" href="admin_coaches.php">🧠 Coaches</a>
         </li>
-        <li class="nav-item mb-2"><a class="nav-link text-white" href="admin_coaches.php">🧠 Coaches</a></li>
         <li class="nav-item mb-2"><a class="nav-link text-white" href="admin_teams.php">🛡 Teams</a></li>
         <li class="nav-item mb-2"><a class="nav-link text-white" href="admin_contracts.php">📄 Contracts</a></li>
         <li class="nav-item mb-2"><a class="nav-link text-white" href="admin_transfers.php">🔥 Transfers</a></li>
@@ -66,9 +66,9 @@ body {
 
 <!-- HEADER -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-danger">🎮 Players Management</h2>
-    <a href="addplayer.php" class="btn btn-outline-info">
-        <i class="bi bi-plus-circle"></i> Add Player
+    <h2 class="text-info">🧠 Coaches Management</h2>
+    <a href="addcoach.php" class="btn btn-outline-info">
+        <i class="bi bi-plus-circle"></i> Add Coach
     </a>
 </div>
 
@@ -76,26 +76,26 @@ body {
 <div class="row mb-4">
     <div class="col-md-3">
         <div class="glass p-3 card-hover text-center">
-            <h6>Total Players</h6>
-            <h3>24</h3>
+            <h6>Total Coaches</h6>
+            <h3>6</h3>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass p-3 card-hover text-center">
-            <h6>Free Agents</h6>
-            <h3>5</h3>
+            <h6>Head Coaches</h6>
+            <h3>3</h3>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass p-3 card-hover text-center">
-            <h6>Under Contract</h6>
-            <h3>19</h3>
+            <h6>Assistant Coaches</h6>
+            <h3>3</h3>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass p-3 card-hover text-center">
-            <h6>Avg Market Value</h6>
-            <h3>820K €</h3>
+            <h6>Avg Experience</h6>
+            <h3>7 yrs</h3>
         </div>
     </div>
 </div>
@@ -105,41 +105,41 @@ body {
     <div class="col-md-6">
         <input type="text" id="searchInput"
                class="form-control form-control-lg search-input"
-               placeholder="🔍 Search by pseudo, role or team">
+               placeholder="🔍 Search by name, style or team">
     </div>
 </div>
 
-<!-- PLAYER TABLE -->
+<!-- COACH TABLE -->
 <div class="glass p-4">
     <table class="table table-dark table-hover align-middle">
         <thead class="text-info">
             <tr>
-                <th>Pseudo</th>
-                <th>Role</th>
+                <th>Name</th>
+                <th>Style</th>
                 <th>Nationality</th>
                 <th>Team</th>
-                <th>Market Value</th>
+                <th>Experience</th>
                 <th class="text-end">Actions</th>
             </tr>
         </thead>
-        <tbody id="playersTable">
+        <tbody id="coachesTable">
             <tr class="searchable">
-                <td>s1mple</td>
-                <td>AWP</td>
-                <td>🇺🇦 Ukraine</td>
-                <td>G2</td>
-                <td>1 200 000 €</td>
+                <td>zonic</td>
+                <td>Tactical</td>
+                <td>🇩🇰 Denmark</td>
+                <td>Vitality</td>
+                <td>10 years</td>
                 <td class="text-end">
-                    <a href="editplayer.php?id=1" class="btn btn-sm btn-outline-info">Edit</a>
+                    <a href="editcoach.php?id=1" class="btn btn-sm btn-outline-info">Edit</a>
                     <button class="btn btn-sm btn-outline-danger">Delete</button>
                 </td>
             </tr>
             <tr class="searchable">
-                <td>ZywOo</td>
-                <td>Rifler</td>
+                <td>XTQZZZ</td>
+                <td>Analytical</td>
                 <td>🇫🇷 France</td>
-                <td>Vitality</td>
-                <td>900 000 €</td>
+                <td>G2</td>
+                <td>6 years</td>
                 <td class="text-end">
                     <a href="#" class="btn btn-sm btn-outline-info">Edit</a>
                     <button class="btn btn-sm btn-outline-danger">Delete</button>

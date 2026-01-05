@@ -1,26 +1,27 @@
+
 <?php
 
 require_once 'Person.php';
 
-class Player extends Person
+class Coach extends Person
 {
     private float $monthlySalary;
-    private float $signingBonus;
+    private float $travelFees;
 
     public function __construct(
         string $name,
         string $email,
         string $nationality,
         float $monthlySalary,
-        float $signingBonus
+        float $travelFees
     ) {
         parent::__construct($name, $email, $nationality);
         $this->monthlySalary = $monthlySalary;
-        $this->signingBonus = $signingBonus;
+        $this->travelFees = $travelFees;
     }
 
     public function getAnnualCost(): float
     {
-        return ($this->monthlySalary * 12) + $this->signingBonus;
+        return ($this->monthlySalary * 12) + $this->travelFees;
     }
 }
