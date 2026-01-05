@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../db_connect.php';
 require_once __DIR__ . '/../classes/Player.php';
-require_once 'RepositoryInterface.php';
+require_once __DIR__ . '/RepositoryInterface.php';
 
 class PlayerRepository implements RepositoryInterface
 {
@@ -13,22 +13,22 @@ class PlayerRepository implements RepositoryInterface
         $this->pdo = Database::getInstance()->getConnection();
     }
 
-    public function findById(int $id): ?Player
+    public function findById(int $id): ?object
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM players WHERE id = ?");
-        $stmt->execute([$id]);
-        $p = $stmt->fetch();
+        $stmt = $this->pdo->prepare("SELECT * FROM players WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch();
 
-        if (!$p) return null;
+        if (!$row) {
+            return null;
+        }
 
         return new Player(
-            $p['id'],
-            $p['pseudo'],
-            $p['role'],
-            (float)$p['market_value'],
-            $p['email'],
-            $p['nationality'],
-            $p['team_id']
+            $row['name'],
+            $row['email'],
+            $row['nationality'],
+            (float) $row['monthly_salary'],
+            (float) $row['signing_bonus']
         );
     }
 
@@ -39,13 +39,11 @@ class PlayerRepository implements RepositoryInterface
 
         while ($row = $stmt->fetch()) {
             $players[] = new Player(
-                $row['id'],
-                $row['pseudo'],
-                $row['role'],
-                (float)$row['market_value'],
+                $row['name'],
                 $row['email'],
                 $row['nationality'],
-                $row['team_id']
+                (float) $row['monthly_salary'],
+                (float) $row['signing_bonus']
             );
         }
 
@@ -59,23 +57,30 @@ class PlayerRepository implements RepositoryInterface
         }
 
         $stmt = $this->pdo->prepare(
-            "INSERT INTO players (pseudo, role, market_value, nationality, email, team_id)
-             VALUES (?, ?, ?, ?, ?, ?)"
+            "INSERT INTO players
+            (name, email, nationality, monthly_salary, signing_bonus, pseudo, role, market_value, team_id)
+            VALUES
+            (:name, :email, :nationality, :monthly_salary, :signing_bonus, :pseudo, :role, :market_value, :team_id)"
         );
 
         return $stmt->execute([
-            $entity->pseudo,
-            $entity->role,
-            $entity->marketValue,
-            $entity->nationality,
-            $entity->email,
-            $entity->teamId
+            'name' => $entity->getName(),
+            'email' => $entity->getEmail(),
+            'nationality' => $entity->getNationality(),
+            'monthly_salary' => $entity->getMonthlySalary(),
+            'signing_bonus' => $entity->getSigningBonus(),
+
+            // competitive metadata (from form / controller)
+            'pseudo' => $_POST['pseudo'],
+            'role' => $_POST['role'],
+            'market_value' => $_POST['market_value'],
+            'team_id' => $_POST['team_id'] ?: null
         ]);
     }
 
     public function delete(int $id): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM players WHERE id = ?");
-        return $stmt->execute([$id]);
+        $stmt = $this->pdo->prepare("DELETE FROM players WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
     }
 }

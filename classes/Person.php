@@ -28,8 +28,6 @@ abstract class Person
     public function getNationality(): string
     {
         return $this->nationality;
-    }
-
- 
+    } 
     abstract public function getAnnualCost(): float;
 }
