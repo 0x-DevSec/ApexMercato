@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die('Invalid request');
 }
 
-// ---- Basic validation ----
+
 $requiredFields = [
     'name',
     'email',
@@ -25,7 +25,7 @@ foreach ($requiredFields as $field) {
     }
 }
 
-// ---- Create domain object ----
+
 $player = new Player(
     $_POST['name'],
     $_POST['email'],
@@ -34,10 +34,9 @@ $player = new Player(
     (float) $_POST['signing_bonus']
 );
 
-// ---- Persist using repository ----
 $repository = new PlayerRepository();
 $repository->save($player);
 
-// ---- Redirect ----
-header('Location: ../admin_players.php');
+
+header('Location: ../admin_coaches.php');
 exit;

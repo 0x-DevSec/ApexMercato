@@ -38,6 +38,6 @@ $coach = new Coach(
 $repository = new CoachRepository();
 $repository->save($coach);
 
-// Redirect back to admin coaches page
+
 header('Location: ../admin_coaches.php');
 exit;
